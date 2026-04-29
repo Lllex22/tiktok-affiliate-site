@@ -2,24 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Picks</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
-
-    <img src="https://via.placeholder.com/100" class="profile" />
-
     <h1>My Top Picks 🔥</h1>
-    <p class="subtitle">Tested & worth it 💯</p>
+    <p>Products I actually tested</p>
 
-    <a href="#" class="btn">🔥 Whitening Cream</a>
-    <a href="#" class="btn">💄 Long-lasting Foundation</a>
-    <a href="#" class="btn">🧴 Skincare Bundle</a>
-
+    <a href="#" class="btn">Product 1</a>
+    <a href="#" class="btn">Product 2</a>
+    <a href="#" class="btn">Product 3</a>
   </div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyBNtB4zokpr-pDBZqVpBpP3BOdR_mJqWGY",
+    authDomain: "tiktok-affiliate-67a93.firebaseapp.com",
+    projectId: "tiktok-affiliate-67a93",
+    storageBucket: "tiktok-affiliate-67a93.firebasestorage.app",
+    messagingSenderId: "999493691104",
+    appId: "1:999493691104:web:6ff00523f8138b6dd75285"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const container = document.querySelector(".container");
+
+  async function loadProducts() {
+    const querySnapshot = await getDocs(collection(db, "products"));
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const btn = document.createElement("a");
+      btn.href = data.link;
+      btn.className = "btn";
+      btn.innerText = data.name;
+
+      container.appendChild(btn);
+    });
+  }
+
+  loadProducts();
+</script>
 </body>
 </html>
